@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./App.css";
+
 
 function App() {
   const [favorites, setFavorites] = useState([]);
@@ -31,7 +33,7 @@ function App() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>🎯 My Favorite Things</h1>
+      <h1>My Favorite Things</h1>
 
       <form onSubmit={handleSubmit}>
         <input
