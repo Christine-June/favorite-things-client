@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
 
 function App() {
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/favorites")
+      .then((res) => res.json())
+      .then((data) => setFavorites(data))
+      .catch((err) => console.error("Error fetching data:", err));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
+      <h1>My Favorite Things</h1>
+      {favorites.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {favorites.map((fav) => (
+            <li key={fav.id}>
+              <strong>{fav.title}</strong> ({fav.type})
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
